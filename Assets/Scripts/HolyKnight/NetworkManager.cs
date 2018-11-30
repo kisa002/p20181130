@@ -9,8 +9,6 @@ public class NetworkManager : MonoBehaviour
 
     public string version = "0.1";
 
-    public int id = 0;
-
     private void Awake()
     {
         if (NetworkManager.Instance == null)

@@ -903,6 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 0.1
+  id: 0
 --- !u!4 &718346109
 Transform:
   m_ObjectHideFlags: 0

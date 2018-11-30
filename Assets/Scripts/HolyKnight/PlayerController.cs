@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     void Start ()
     {
+        // 캐릭터 생성 시 ID
         if (PhotonNetwork.isMasterClient)
         {
             if(photonView.isMine)
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
+        // 자기 자신 플레이어만 움직이도록
         if (!photonView.isMine)
             return;
 
@@ -94,7 +96,10 @@ public class PlayerController : MonoBehaviour
     [PunRPC]
     public void PunSendArm(Vector3 pos, Quaternion rot)
     {
-        arm[0].transform.parent.position = pos;
+        if(!photonView.isMine)
+            arm[0].transform.parent.position = Vector3.Lerp(arm[0].transform.parent.position, pos, Time.deltaTime * 8);
+
+        //arm[0].transform.parent.position = pos;
         arm[1].transform.rotation = rot;
 
         //Debug.Log(pos);

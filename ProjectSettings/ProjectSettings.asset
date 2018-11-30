@@ -256,7 +256,7 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 2800000, guid: 57ce5dd884a67d44491f7318270ac658,
+  resolutionDialogBanner: {fileID: 2800000, guid: f31ccbb5b8f16b247994afa8d13bdeb2,
     type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: Standalone
@@ -295,6 +295,13 @@ PlayerSettings:
       m_Icon: {fileID: 0}
       m_Width: 16
       m_Height: 16
+      m_Kind: 0
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: f31ccbb5b8f16b247994afa8d13bdeb2, type: 3}
+      m_Width: 128
+      m_Height: 128
       m_Kind: 0
   m_BuildTargetPlatformIcons: []
   m_BuildTargetBatching: []
@@ -562,7 +569,7 @@ PlayerSettings:
   psp2InfoBarOnStartup: 0
   psp2InfoBarColor: 0
   psp2ScriptOptimizationLevel: 0
-  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: dbb8571e467c75a41a20047a2f94da1f,
+  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: f31ccbb5b8f16b247994afa8d13bdeb2,
     type: 3}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
   spritePackerPolicy: 
