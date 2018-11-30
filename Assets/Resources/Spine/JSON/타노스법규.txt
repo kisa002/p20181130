@@ -1,0 +1,48 @@
+
+타노스법규.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+레이어 10
+  rotate: true
+  xy: 715, 459
+  size: 67, 114
+  orig: 67, 114
+  offset: 0, 0
+  index: -1
+레이어 3
+  rotate: false
+  xy: 2, 124
+  size: 479, 881
+  orig: 479, 881
+  offset: 0, 0
+  index: -1
+레이어 4
+  rotate: true
+  xy: 483, 445
+  size: 560, 230
+  orig: 560, 230
+  offset: 0, 0
+  index: -1
+레이어 5
+  rotate: true
+  xy: 715, 528
+  size: 477, 195
+  orig: 477, 195
+  offset: 0, 0
+  index: -1
+레이어 8
+  rotate: false
+  xy: 2, 2
+  size: 417, 120
+  orig: 417, 120
+  offset: 0, 0
+  index: -1
+레이어 9
+  rotate: false
+  xy: 483, 310
+  size: 134, 133
+  orig: 134, 133
+  offset: 0, 0
+  index: -1

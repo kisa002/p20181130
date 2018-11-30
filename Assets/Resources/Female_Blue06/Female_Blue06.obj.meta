@@ -1,0 +1,141 @@
+fileFormatVersion: 2
+guid: 3d13a1b2232629b4584e4f00d5242f40
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Object001
+    100004: Object002
+    100006: Object003
+    100008: Object004
+    100010: Object005
+    100012: PC_TP_Female_Blue06_Lobby
+    100014: PC_TP_Female_Blue06_Lobby_Bag
+    100016: PC_TP_Female_Blue06_Lobby_Hair
+    100018: Text001
+    400000: //RootNode
+    400002: Object001
+    400004: Object002
+    400006: Object003
+    400008: Object004
+    400010: Object005
+    400012: PC_TP_Female_Blue06_Lobby
+    400014: PC_TP_Female_Blue06_Lobby_Bag
+    400016: PC_TP_Female_Blue06_Lobby_Hair
+    400018: Text001
+    2100000: Material__80
+    2100002: Material__32
+    2100004: wire_138008110
+    2100006: Material__68
+    2100008: Material__94
+    2100010: Material__81
+    2100012: wire_087225198
+    2300000: Object001
+    2300002: Object002
+    2300004: Object003
+    2300006: Object004
+    2300008: Object005
+    2300010: PC_TP_Female_Blue06_Lobby
+    2300012: PC_TP_Female_Blue06_Lobby_Bag
+    2300014: PC_TP_Female_Blue06_Lobby_Hair
+    2300016: Text001
+    3300000: Object001
+    3300002: Object002
+    3300004: Object003
+    3300006: Object004
+    3300008: Object005
+    3300010: PC_TP_Female_Blue06_Lobby
+    3300012: PC_TP_Female_Blue06_Lobby_Bag
+    3300014: PC_TP_Female_Blue06_Lobby_Hair
+    3300016: Text001
+    4300000: Object001
+    4300002: Object002
+    4300004: Object003
+    4300006: Object004
+    4300008: Object005
+    4300010: PC_TP_Female_Blue06_Lobby
+    4300012: PC_TP_Female_Blue06_Lobby_Bag
+    4300014: PC_TP_Female_Blue06_Lobby_Hair
+    4300016: Text001
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

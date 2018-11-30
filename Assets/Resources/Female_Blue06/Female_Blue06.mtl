@@ -1,0 +1,94 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 08.12.2016 12:51:16
+
+newmtl wire_087225198
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.3412 0.8824 0.7765
+	Kd 0.3412 0.8824 0.7765
+	Ks 0.3500 0.3500 0.3500
+
+newmtl Material__81
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Red06_Hair00_D.tga
+	map_Kd D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Red06_Hair00_D.tga
+	map_d D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Red06_Hair00_D.tga
+
+newmtl Material__94
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Blue06_Lower_D.tga
+	map_Kd D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Blue06_Lower_D.tga
+
+newmtl Material__80
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Red06_Hair01_D.tga
+	map_Kd D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Red06_Hair01_D.tga
+	map_d D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Red06_Hair01_D.tga
+
+newmtl Material__32
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Blue06_Upper_D.tga
+	map_Kd D:\3D models\Sudden Attack 2\Characters\Female_Blue06\p3dm.ru_PC_TP_Female_Blue06_Upper_D.tga
+
+newmtl wire_138008110
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.5412 0.0314 0.4314
+	Kd 0.5412 0.0314 0.4314
+	Ks 0.3500 0.3500 0.3500
+
+newmtl Material__68
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\3D models\Sudden Attack 2\Characters\Female_Blue06\Eye_D.tga
+	map_Kd D:\3D models\Sudden Attack 2\Characters\Female_Blue06\Eye_D.tga
