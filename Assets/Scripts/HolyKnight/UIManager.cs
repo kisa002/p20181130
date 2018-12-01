@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public Button[] btnPlayer = new Button[4];
 
     public GameObject panelResult;
+    public Image imgEnding;
     public Image imgResult;
 
     private void Awake()
@@ -50,15 +51,15 @@ public class UIManager : MonoBehaviour
         panelResult.SetActive(true);
 
         imgResult = panelResult.transform.Find("ImgResult").GetComponent<Image>();
-
-        StartCoroutine(CorShowResult());
-
+        
         bool isWin = NetworkManager.Instance.player.id == id ? true : false;
 
         if (isWin)
             imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Win");
         else
             imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Defeat");
+
+        ShowAnimation(4); //여기다가 승자의 PlayerNumber 넣어주면 돼
     }
 
     IEnumerator CorShowResult()
@@ -79,6 +80,43 @@ public class UIManager : MonoBehaviour
             btn.image.color = new Color(1, 1, 1, i * 0.01f);
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    public void ShowAnimation(int number)
+    {
+        string[] playerName = new string[4];
+        playerName[0] = "Thanos";
+        playerName[1] = "SymYoung";
+        playerName[2] = "UnityChan";
+        playerName[3] = "Ahri";
+        
+        imgEnding = panelResult.transform.Find("ImgEnding").GetComponent<Image>();
+
+        StartCoroutine(CorEndingAnimation(playerName[number - 1]));
+    }
+
+    IEnumerator CorEndingAnimation(string playerName)
+    {
+        Sprite spr;
+
+        for (int i = 0; ; i++)
+        {
+            Debug.Log("Sprites/Ending/" + playerName + i);
+
+            spr = Resources.Load<Sprite>("Sprites/Ending/" + playerName + "/" + i);
+
+            if (spr == null)
+                break;
+
+            imgEnding.sprite = spr;
+
+            yield return new WaitForSeconds(.5f);
+        }
+
+        yield return new WaitForSeconds(2f);
+        imgEnding.gameObject.SetActive(false);
+
+        StartCoroutine(CorShowResult());
     }
 
     public void GameRestart()
