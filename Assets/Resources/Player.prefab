@@ -82,6 +82,7 @@ MonoBehaviour:
   photonView: {fileID: 114039783069822934}
   moveSpeed: 1
   id: 0
+  playerNumber: 0
   finger:
   - {fileID: 0}
   - {fileID: 0}

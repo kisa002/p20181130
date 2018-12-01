@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
     float prevPosY;
     float prevPosX;
 
+    public bool isReady = false;
+
     public int moveSpeed;
     public int id = 0;
 
-    float currentLerpTime = 0;
+    public int playerNumber = -1;
 
     public GameObject[] finger = new GameObject[5];
     public GameObject[] arm = new GameObject[3];
@@ -53,6 +55,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (id == 2)
+            arm[0].transform.parent.position = new Vector3(arm[0].transform.parent.position.x, arm[0].transform.parent.position.y, 0);
+
         //Cursor.lockState = CursorLockMode.Confined
     }
 	
@@ -62,7 +67,10 @@ public class PlayerController : MonoBehaviour
         if (!photonView.isMine)
             return;
 
-        currentLerpTime += Time.deltaTime;
+        if (NetworkManager.Instance.isPlay == false)
+            return;
+
+        Debug.Log("A");
 
         MoveArm();
         MovePlayer();
@@ -259,5 +267,75 @@ public class PlayerController : MonoBehaviour
             case 5:
                 break;
         }
+    }
+
+
+
+    public void SelectPlayer(int x, int y)
+    {
+        playerNumber = y;
+        photonView.RPC("PunSelectPlayer", PhotonTargets.AllBuffered, x, y);
+    }
+
+    [PunRPC]
+    public void PunSelectPlayer(int x, int y)
+    {
+        if (x == 0)
+        {
+            UIManager.Instance.btnPlayer[y - 1].interactable = false;
+
+            var color = UIManager.Instance.btnPlayer[y - 1].colors;
+
+            if (photonView.isMine)
+                color.disabledColor = new Color(0.02516699f, 0.945098f, 0.01176471f, 0.5019608f);
+            else
+                color.disabledColor = new Color(0.945098f, 0.01176471f, 0.02063006f, 0.5019608f);
+
+            UIManager.Instance.btnPlayer[y - 1].colors = color;
+        }
+        else
+        {
+            UIManager.Instance.btnPlayer[x - 1].interactable = true;
+            UIManager.Instance.btnPlayer[y - 1].interactable = false;
+
+            var color = UIManager.Instance.btnPlayer[y - 1].colors;
+
+            if (photonView.isMine)
+                color.disabledColor = new Color(0.02516699f, 0.945098f, 0.01176471f, 0.5019608f);
+            else
+                color.disabledColor = new Color(0.945098f, 0.01176471f, 0.02063006f, 0.5019608f);
+
+            UIManager.Instance.btnPlayer[y - 1].colors = color;
+        }
+    }
+
+    public void GameReady()
+    {
+        photonView.RPC("PunGameReady", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    public void PunGameReady()
+    {
+        if (isReady)
+            return;
+
+        isReady = true;
+        NetworkManager.Instance.readyCount++;
+
+        if (NetworkManager.Instance.readyCount == 2)
+            GameStart();
+    }
+
+    public void GameStart()
+    {
+        photonView.RPC("PunGameStart", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    public void PunGameStart()
+    {
+        NetworkManager.Instance.isPlay = true;
+        PhotonNetwork.LoadLevel("InGame");
     }
 }

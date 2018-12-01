@@ -748,8 +748,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 114846327540571652}
+  isReady: 0
   moveSpeed: 1
   id: 0
+  playerNumber: -1
   finger:
   - {fileID: 1919536574374734}
   - {fileID: 1531549779235810}

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212451600081281176}
   - component: {fileID: 60867043945484748}
   - component: {fileID: 50928748365146338}
+  - component: {fileID: 70835378064387152}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1954009318389952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3762743, y: -0.38642198, z: -1}
+  m_LocalPosition: {x: -3.298, y: -0.42, z: -1}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -68,7 +69,7 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1954009318389952}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -97,6 +98,21 @@ PolygonCollider2D:
       - {x: -0.35129273, y: 0.115293175}
       - {x: -0.34999982, y: -0.13230558}
       - {x: -0.18931763, y: -0.3897407}
+--- !u!70 &70835378064387152
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954009318389952}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.008036749, y: 0.020092046}
+  m_Size: {x: 0.6463821, y: 0.8633748}
+  m_Direction: 0
 --- !u!212 &212451600081281176
 SpriteRenderer:
   m_ObjectHideFlags: 1

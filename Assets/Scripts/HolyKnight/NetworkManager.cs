@@ -12,6 +12,8 @@ public class NetworkManager : MonoBehaviour
     public bool isPlay = false;
     public PlayerController player;
 
+    public int readyCount = 0;
+
     private void Awake()
     {
         if (NetworkManager.Instance == null)
@@ -96,6 +98,8 @@ public class NetworkManager : MonoBehaviour
     {
         SpawnPlayer();
         //PhotonNetwork.LoadLevel("InGame");
+
+        UIManager.Instance.ShowSelect();
         Debug.Log("방 접속 완료");
     }
     #endregion
@@ -107,14 +111,28 @@ public class NetworkManager : MonoBehaviour
         switch (scene.name)
         {
             case "InGame":
-                SpawnPlayer();
+                SpawnPlayer(player.playerNumber);
                 break;
         }
     }
 
+    public void PlayerSelect()
+    {
+        player.GameReady();
+    }
+
     public void SpawnPlayer()
     {
-        PhotonNetwork.Instantiate("Player3", Vector3.zero, Quaternion.identity, 0);
+        GameObject obj = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+        player = obj.GetComponent<PlayerController>();
+    }
+
+    public void SpawnPlayer(int number)
+    {
+        GameObject obj = PhotonNetwork.Instantiate("Player" + number, Vector3.zero, Quaternion.identity, 0);
+        player = obj.GetComponent<PlayerController>();
+
+        Debug.Log("Player" + number);
     }
     #endregion
 }
