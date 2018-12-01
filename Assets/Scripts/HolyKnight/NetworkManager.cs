@@ -9,6 +9,9 @@ public class NetworkManager : MonoBehaviour
 
     public string version = "0.1";
 
+    public bool isPlay = false;
+    public PlayerController player;
+
     private void Awake()
     {
         if (NetworkManager.Instance == null)
@@ -66,7 +69,7 @@ public class NetworkManager : MonoBehaviour
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 2;
 
-        PhotonNetwork.CreateRoom("test", roomOptions, TypedLobby.Default);
+        PhotonNetwork.CreateRoom("gameName" + Random.Range(1, 10000) + " " + Random.Range(1, 10000), roomOptions, TypedLobby.Default);
     }
 
     public void CreateRoom(string roomName)
@@ -111,7 +114,7 @@ public class NetworkManager : MonoBehaviour
 
     public void SpawnPlayer()
     {
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Player3", Vector3.zero, Quaternion.identity, 0);
     }
     #endregion
 }

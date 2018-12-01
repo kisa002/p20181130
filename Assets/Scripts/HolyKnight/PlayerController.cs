@@ -5,12 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public PhotonView photonView;
+
     float currentPosY;
     float currentPosX;
     float prevPosY;
     float prevPosX;
+
     public int moveSpeed;
     public int id = 0;
+
+    float currentLerpTime = 0;
 
     public GameObject[] finger = new GameObject[5];
     public GameObject[] arm = new GameObject[3];
@@ -23,12 +27,12 @@ public class PlayerController : MonoBehaviour
             if(photonView.isMine)
             {
                 id = 1;
-                transform.position = Vector2.left * 7;
+                transform.position = new Vector3(-7, 0, -1);
             }
             else
             {
                 id = 2;
-                transform.position = Vector2.right * 7;
+                transform.position = new Vector3(7, 0, -1);
 
                 transform.rotation = Quaternion.Euler(Vector3.up * 180);
             }
@@ -38,23 +42,27 @@ public class PlayerController : MonoBehaviour
             if (photonView.isMine)
             {
                 id = 2;
-                transform.position = Vector2.right * 7;
+                transform.position = new Vector3(7, 0, -1);
 
                 transform.rotation = Quaternion.Euler(Vector3.up * 180);    
             }
             else
             {
                 id = 1;
-                transform.position = Vector2.left * 7;
+                transform.position = new Vector3(-7, 0, -1);
             }
         }
+
+        //Cursor.lockState = CursorLockMode.Confined
     }
 	
-	void FixedUpdate ()
+	void Update ()
     {
         // 자기 자신 플레이어만 움직이도록
         if (!photonView.isMine)
             return;
+
+        currentLerpTime += Time.deltaTime;
 
         MoveArm();
         MovePlayer();
@@ -66,7 +74,7 @@ public class PlayerController : MonoBehaviour
             prevPosY = Input.mousePosition.y;
 
         currentPosY = Input.mousePosition.y;
-        arm[2].transform.Rotate(0, 0, (currentPosY - prevPosY) / 15);
+        arm[2].transform.Rotate(0, 0, (currentPosY - prevPosY) * Time.deltaTime * 3);
 
         //Debug.Log($"Prev:{prevPosX} / Current: {currentPosX}");
 
@@ -75,9 +83,7 @@ public class PlayerController : MonoBehaviour
             prevPosX = Input.mousePosition.x;
 
         currentPosX = Input.mousePosition.x;
-        arm[0].transform.Rotate(0, 0, (currentPosX - prevPosX) / 15);
-        
-
+        arm[0].transform.Rotate(0, 0, (currentPosX - prevPosX) * Time.deltaTime * 3);
 
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
@@ -90,27 +96,47 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
+            //arm[1].transform.Rotate(0, 0, 15);
 
-            arm[1].transform.Rotate(0, 0, 15);
+            Quaternion rot;
+            rot = arm[1].transform.rotation;
 
+            rot = Quaternion.Euler(0, 0, rot.eulerAngles.z + 50);
+            
+            arm[1].transform.rotation = Quaternion.Slerp(arm[1].transform.rotation, rot, Time.deltaTime * 4);
         }
 
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
+            //arm[1].transform.Rotate(0, 0, -15);
 
-            arm[1].transform.Rotate(0, 0, -15);
+            Quaternion rot;
+            rot = arm[1].transform.rotation;
+
+            rot = Quaternion.Euler(0, 0, rot.eulerAngles.z - 50);
+
+            arm[1].transform.rotation = Quaternion.Slerp(arm[1].transform.rotation, rot, Time.deltaTime * 4);
         }
         if (Input.GetAxis("Mouse") > 0f)
         {
+            //finger[0].transform.Rotate(0, 0, 15);
 
-            finger[0].transform.Rotate(0, 0, 15);
+            Quaternion rot;
+            rot = finger[0].transform.rotation;
 
+            rot = Quaternion.Euler(0, 0, rot.eulerAngles.z + 50);
+
+            finger[0].transform.rotation = Quaternion.Slerp(finger[0].transform.rotation, rot, Time.deltaTime);
         }
 
         else if (Input.GetAxis("Mouse") < 0f)
         {
+            Quaternion rot;
+            rot = finger[0].transform.rotation;
 
-            finger[0].transform.Rotate(0, 0, -15);
+            rot = Quaternion.Euler(0, 0, rot.eulerAngles.z - 50);
+
+            finger[0].transform.rotation = Quaternion.Slerp(finger[0].transform.rotation, rot, Time.deltaTime);
         }
         if (Input.GetAxisRaw("WE") > 0f)
         {
@@ -143,16 +169,30 @@ public class PlayerController : MonoBehaviour
         SendMovePlayer();
     }
 
-    public void SendFinger(int type)
+    public void SendFinger()
     {
-        photonView.RPC("PunSendFinger", PhotonTargets.All, type, finger[type].transform.position, finger[type].transform.rotation);
+        float[] rot = new float[5];
+
+        for (int i = 0; i < 5; i++)
+            rot[i] = finger[i].transform.rotation.eulerAngles.z;
+
+        photonView.RPC("PunSendFinger", PhotonTargets.All, rot[0], rot[1], rot[2], rot[3], rot[4]);
     }
 
     [PunRPC]
-    public void PunSendFinger(int type, Vector3 pos, Quaternion rot)
+    public void PunSendFinger(float a, float b, float c, float d, float e)
     {
-        finger[type].transform.position = pos;
-        finger[type].transform.rotation = rot;
+        float p = id == 1 ? 0 : 180;
+
+        Quaternion[] rot = new Quaternion[5];
+        rot[0] = Quaternion.Euler(new Vector3(0, p, a));
+        rot[1] = Quaternion.Euler(new Vector3(0, p, b));
+        rot[2] = Quaternion.Euler(new Vector3(0, p, c));
+        rot[3] = Quaternion.Euler(new Vector3(0, p, d));
+        rot[4] = Quaternion.Euler(new Vector3(0, p, e));
+
+        for (int i = 0; i < 5; i++)
+            finger[i].transform.rotation = Quaternion.Lerp(finger[i].transform.rotation, rot[i], 10f);
     }
 
     public void SendArm()
@@ -181,6 +221,7 @@ public class PlayerController : MonoBehaviour
     {
         photonView.RPC("PunMovePlayer", PhotonTargets.All, transform.position);
     }
+
     [PunRPC]
     public void PunMovePlayer(Vector3 pos)
     {
