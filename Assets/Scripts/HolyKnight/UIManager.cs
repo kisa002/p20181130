@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
             UIManager.Instance = this;
         else
             Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void ShowMain()
@@ -42,7 +44,7 @@ public class UIManager : MonoBehaviour
         NetworkManager.Instance.player.SelectPlayer(NetworkManager.Instance.player.playerNumber, number);
     }
 
-    public void ShowResult(bool isWin)
+    public void ShowResult(int id)
     {
         panelResult = GameObject.Find("Canvas").transform.Find("Panel Result").gameObject;
         panelResult.SetActive(true);
@@ -51,10 +53,12 @@ public class UIManager : MonoBehaviour
 
         StartCoroutine(CorShowResult());
 
+        bool isWin = NetworkManager.Instance.player.id == id ? true : false;
+
         if (isWin)
             imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Win");
         else
-            imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Lose");
+            imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Defeat");
     }
 
     IEnumerator CorShowResult()

@@ -371,10 +371,7 @@ public class PlayerController : MonoBehaviour
     [PunRPC]
     public void PunGameEnd(int id)
     {
-        if (this.id == id)
-            UIManager.Instance.ShowResult(true);
-        else
-            UIManager.Instance.ShowResult(false);
+        UIManager.Instance.ShowResult(id);
     }
 
     IEnumerator CorSpawnStone()
