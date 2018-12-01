@@ -90,9 +90,15 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float x = Input.GetKey(KeyCode.LeftArrow) == true ? -1 : 0;
+        x = Input.GetKey(KeyCode.RightArrow) == true ? 1 : x;
+        
+        if(id == 1)
+            transform.Translate(Vector2.right * 2 * x * Time.deltaTime);
+        else
+            transform.Translate(Vector2.left * 2 * x * Time.deltaTime);
 
-        transform.Translate(Vector2.right * x);
+        photonView.RPC("PunMovePlayer", PhotonTargets.All, transform.position);
     }
 
     public void SendFinger(int type)
@@ -127,16 +133,15 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
             arm[i].transform.rotation = Quaternion.Lerp(arm[i].transform.rotation, rot[i], 10f);
-        //Vector3.Lerp(arm[0].transform.parent.position, pos, Time.deltaTime * 8);
+    }
 
-        //arm[0].transform.parent.position = pos;
-        //arm[0].transform.rotation = Quaternion.Euler(0, 0, x);
-        //arm[1].transform.rotation = Quaternion.Euler(0, 0, y);
-        //arm[2].transform.rotation = Quaternion.Euler(0, 0, z);
+    [PunRPC]
+    public void PunMovePlayer(Vector3 pos)
+    {
+        if (photonView.isMine)
+            return;
 
-        Debug.Log($"{x} / {y} / {z}");
-
-        //Debug.Log(pos);
+        transform.position = Vector3.Lerp(transform.position, pos, 10);
     }
 
     public void UseSkill(int id)

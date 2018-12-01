@@ -39,4 +39,5 @@ MonoBehaviour:
   - PunSendArm
   - PunSendFinger
   - PunUseSkill
+  - PunMovePlayer
   DisableAutoOpenWizard: 1
