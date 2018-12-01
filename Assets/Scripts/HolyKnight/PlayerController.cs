@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public PhotonView photonView;
-
+    float currentPosY;
+    float currentPosX;
+    float prevPosY;
+    float prevPosX;
+    public int moveSpeed;
     public int id = 0;
 
     public GameObject[] finger = new GameObject[5];
@@ -46,7 +50,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 	
-	void Update ()
+	void FixedUpdate ()
     {
         // 자기 자신 플레이어만 움직이도록
         if (!photonView.isMine)
@@ -58,34 +62,72 @@ public class PlayerController : MonoBehaviour
 
     void MoveArm()
     {
-        float[] rot = new float[3];
+        if (prevPosY == 0)
+            prevPosY = Input.mousePosition.y;
 
-        if (Input.GetKey(KeyCode.Q))
-            rot[0] = 35f * Time.deltaTime;
-        else
-            if (Input.GetKey(KeyCode.E))
-                rot[0] = -35f * Time.deltaTime;
+        currentPosY = Input.mousePosition.y;
+        arm[2].transform.Rotate(0, 0, (currentPosY - prevPosY) / 15);
 
-        if (Input.GetKey(KeyCode.D))
-            rot[1] = 35f * Time.deltaTime;
-        else
-            if (Input.GetKey(KeyCode.A))
-                rot[1] = -35f * Time.deltaTime;
+        //Debug.Log($"Prev:{prevPosX} / Current: {currentPosX}");
 
-        if (Input.GetKey(KeyCode.C))
-             rot[2] = 35f * Time.deltaTime;
-        else
-            if (Input.GetKey(KeyCode.Z))
-              rot[2] = -35f * Time.deltaTime;
 
-        if(rot[0] != 0 || rot[1] != 0 || rot[2] != 0)
+        if (prevPosX == 0)
+            prevPosX = Input.mousePosition.x;
+
+        currentPosX = Input.mousePosition.x;
+        arm[0].transform.Rotate(0, 0, (currentPosX - prevPosX) / 15);
+        
+
+
+        if (Input.GetAxisRaw("Horizontal") > 0)
         {
-            arm[0].transform.Rotate(Vector3.forward * rot[0]);
-            arm[1].transform.Rotate(Vector3.forward * rot[1]);
-            arm[2].transform.Rotate(Vector3.forward * rot[2]);
-
-            SendArm();
+            transform.position += moveSpeed * Vector3.right * Time.deltaTime;
         }
+
+        else if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            transform.position += moveSpeed * Vector3.left * Time.deltaTime;
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+
+            arm[1].transform.Rotate(0, 0, 15);
+
+        }
+
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+
+            arm[1].transform.Rotate(0, 0, -15);
+        }
+        if (Input.GetAxis("Mouse") > 0f)
+        {
+
+            finger[0].transform.Rotate(0, 0, 15);
+
+        }
+
+        else if (Input.GetAxis("Mouse") < 0f)
+        {
+
+            finger[0].transform.Rotate(0, 0, -15);
+        }
+        if (Input.GetAxisRaw("WE") > 0f)
+        {
+
+            finger[3].transform.Rotate(0, 0, 5);
+
+        }
+
+        else if (Input.GetAxisRaw("WE") < 0f)
+        {
+
+            finger[3].transform.Rotate(0, 0, -5);
+        }
+        prevPosX = currentPosX;
+        prevPosY = currentPosY;
+
+        SendArm();
     }
 
     void MovePlayer()
@@ -98,7 +140,7 @@ public class PlayerController : MonoBehaviour
         else
             transform.Translate(Vector2.left * 2 * x * Time.deltaTime);
 
-        photonView.RPC("PunMovePlayer", PhotonTargets.All, transform.position);
+        SendMovePlayer();
     }
 
     public void SendFinger(int type)
@@ -135,6 +177,10 @@ public class PlayerController : MonoBehaviour
             arm[i].transform.rotation = Quaternion.Lerp(arm[i].transform.rotation, rot[i], 10f);
     }
 
+    public void SendMovePlayer()
+    {
+        photonView.RPC("PunMovePlayer", PhotonTargets.All, transform.position);
+    }
     [PunRPC]
     public void PunMovePlayer(Vector3 pos)
     {

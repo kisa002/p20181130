@@ -15,7 +15,7 @@ public class MouseRoll : MonoBehaviour {
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if (transform.rotation.z < 30  )
+            
                 transform.Rotate(0, 0, 15);
             
         }
