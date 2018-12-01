@@ -23,8 +23,10 @@ GameObject:
   - component: {fileID: 60867043945484748}
   - component: {fileID: 50928748365146338}
   - component: {fileID: 70835378064387152}
+  - component: {fileID: 114806290181274074}
+  - component: {fileID: 114556111722160036}
   m_Layer: 0
-  m_Name: Stone
+  m_Name: Stone0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +115,43 @@ CapsuleCollider2D:
   m_Offset: {x: -0.008036749, y: 0.020092046}
   m_Size: {x: 0.6463821, y: 0.8633748}
   m_Direction: 0
+--- !u!114 &114556111722160036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954009318389952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 114806290181274074}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &114806290181274074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954009318389952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e8270b641274b49bebfc8e29a8e936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212451600081281176
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -148,7 +187,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2b548db7ec37ab3429ee573c34ce60eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 529fc71bb01d78b41a9d8d39d6e6091a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

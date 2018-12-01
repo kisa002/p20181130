@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
     public GameObject panelMain, panelSelect;
     public Button[] btnPlayer = new Button[4];
 
+    public GameObject panelResult;
+    public Image imgResult;
+
     private void Awake()
     {
         if (UIManager.Instance == null)
@@ -37,5 +40,45 @@ public class UIManager : MonoBehaviour
 
         //Debug.Log($"A {NetworkManager.Instance.player.playerNumber} {number}");
         NetworkManager.Instance.player.SelectPlayer(NetworkManager.Instance.player.playerNumber, number);
+    }
+
+    public void ShowResult(bool isWin)
+    {
+        panelResult = GameObject.Find("Canvas").transform.Find("Panel Result").gameObject;
+        panelResult.SetActive(true);
+
+        imgResult = panelResult.transform.Find("ImgResult").GetComponent<Image>();
+
+        StartCoroutine(CorShowResult());
+
+        if (isWin)
+            imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Win");
+        else
+            imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Lose");
+    }
+
+    IEnumerator CorShowResult()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            imgResult.color = new Color(1, 1, 1, i * 0.01f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        Button btn;
+        btn = panelResult.transform.Find("BtnRestart").GetComponent<Button>();
+
+        for (int i = 0; i < 100; i++)
+        {
+            btn.image.color = new Color(1, 1, 1, i * 0.01f);
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    public void GameRestart()
+    {
+        Application.Quit();
     }
 }

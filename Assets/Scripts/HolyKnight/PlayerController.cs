@@ -55,8 +55,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (id == 2)
+        if (id == 2 && NetworkManager.Instance.isPlay)
             arm[0].transform.parent.position = new Vector3(arm[0].transform.parent.position.x, arm[0].transform.parent.position.y, 0);
+
+        if (PhotonNetwork.isMasterClient && NetworkManager.Instance.isPlay)
+            StartCoroutine(CorSpawnStone());
 
         //Cursor.lockState = CursorLockMode.Confined
     }
@@ -70,10 +73,14 @@ public class PlayerController : MonoBehaviour
         if (NetworkManager.Instance.isPlay == false)
             return;
 
-        Debug.Log("A");
-
         MoveArm();
         MovePlayer();
+
+        if (Input.GetKey(KeyCode.Insert) && Input.GetKey(KeyCode.Delete))
+            GameEnd(1);
+
+        if (Input.GetKey(KeyCode.Home) && Input.GetKey(KeyCode.End))
+            GameEnd(2);
     }
 
     void MoveArm()
@@ -337,5 +344,49 @@ public class PlayerController : MonoBehaviour
     {
         NetworkManager.Instance.isPlay = true;
         PhotonNetwork.LoadLevel("InGame");
+
+        Cursor.visible = false;
+    }
+
+    public void GameEnd(int id)
+    {
+        photonView.RPC("PunGameEnd", PhotonTargets.All, id);
+    }
+
+    [PunRPC]
+    public void PunGameEnd(int id)
+    {
+        if (this.id == id)
+            UIManager.Instance.ShowResult(true);
+        else
+            UIManager.Instance.ShowResult(false);
+    }
+
+    IEnumerator CorSpawnStone()
+    {
+        int type = Random.Range(0, 6);
+        float time = Random.Range(0.5f, 2f);
+
+        float x = Random.Range(-4, 4);
+
+        Vector3 pos = new Vector3(x, 6, 0);
+
+        Quaternion rot;
+        rot = Quaternion.Euler(0, 0, Random.Range(0, 359));
+
+        PhotonNetwork.Instantiate("Stone" + type, pos, rot, 0);
+
+        yield return new WaitForSeconds(time);
+        StartCoroutine(CorSpawnStone());
+    }
+
+    public void SpawnStone(int type)
+    {
+        PhotonNetwork.Instantiate("Stone" + type, Vector3.zero, Quaternion.identity, 0);
+    }
+
+    public void NetworkDestroy(GameObject obj)
+    {
+        PhotonNetwork.Destroy(obj);
     }
 }

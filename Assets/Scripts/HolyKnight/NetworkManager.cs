@@ -131,8 +131,6 @@ public class NetworkManager : MonoBehaviour
     {
         GameObject obj = PhotonNetwork.Instantiate("Player" + number, Vector3.zero, Quaternion.identity, 0);
         player = obj.GetComponent<PlayerController>();
-
-        Debug.Log("Player" + number);
     }
     #endregion
 }
