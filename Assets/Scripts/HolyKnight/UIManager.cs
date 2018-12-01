@@ -59,7 +59,14 @@ public class UIManager : MonoBehaviour
         else
             imgResult.sprite = Resources.Load<Sprite>("Sprites/Result/Defeat");
 
-        ShowAnimation(4); //여기다가 승자의 PlayerNumber 넣어주면 돼
+        //여기다가 승자의 PlayerNumber 넣어주면 돼
+        if (NetworkManager.Instance.player.playerNumber == id)
+            ShowAnimation(NetworkManager.Instance.player.playerNumber); 
+        else
+        {
+            //여기를 변경해주면 됨.
+            ShowAnimation(NetworkManager.Instance.player.playerNumber);
+        }
     }
 
     IEnumerator CorShowResult()
