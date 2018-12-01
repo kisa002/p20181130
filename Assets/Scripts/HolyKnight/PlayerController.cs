@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
 
     public int id = 0;
 
-    public GameObject[] finger = new GameObject[2];
-    public GameObject[] arm = new GameObject[2];
+    public GameObject[] finger = new GameObject[5];
+    public GameObject[] arm = new GameObject[3];
 
     void Start ()
     {
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
                 transform.position = Vector2.left * 7;
             }
         }
-	}
+    }
 	
 	void Update ()
     {
@@ -53,27 +53,46 @@ public class PlayerController : MonoBehaviour
             return;
 
         MoveArm();
+        MovePlayer();
     }
 
     void MoveArm()
     {
-        var x = Input.GetAxis("Horizontal") * 5 * Time.deltaTime;
-        var y = Input.GetAxis("Vertical") * 17 * Time.deltaTime;
+        float[] rot = new float[3];
 
-        if (id == 1)
-        {
-            arm[0].transform.parent.Translate(Vector2.right * x);
-            arm[1].transform.Rotate(Vector3.back * y);
-
-            SendArm();
-        }
+        if (Input.GetKey(KeyCode.Q))
+            rot[0] = 35f * Time.deltaTime;
         else
+            if (Input.GetKey(KeyCode.E))
+                rot[0] = -35f * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.D))
+            rot[1] = 35f * Time.deltaTime;
+        else
+            if (Input.GetKey(KeyCode.A))
+                rot[1] = -35f * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.C))
+             rot[2] = 35f * Time.deltaTime;
+        else
+            if (Input.GetKey(KeyCode.Z))
+              rot[2] = -35f * Time.deltaTime;
+
+        if(rot[0] != 0 || rot[1] != 0 || rot[2] != 0)
         {
-            arm[0].transform.parent.Translate(Vector2.right * -x);
-            arm[1].transform.Rotate(Vector3.back * -y);
+            arm[0].transform.Rotate(Vector3.forward * rot[0]);
+            arm[1].transform.Rotate(Vector3.forward * rot[1]);
+            arm[2].transform.Rotate(Vector3.forward * rot[2]);
 
             SendArm();
         }
+    }
+
+    void MovePlayer()
+    {
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+
+        transform.Translate(Vector2.right * x);
     }
 
     public void SendFinger(int type)
@@ -90,17 +109,32 @@ public class PlayerController : MonoBehaviour
 
     public void SendArm()
     {
-        photonView.RPC("PunSendArm", PhotonTargets.All, arm[0].transform.parent.position, arm[1].transform.rotation);
+        photonView.RPC("PunSendArm", PhotonTargets.All, arm[0].transform.rotation.eulerAngles.z, arm[1].transform.rotation.eulerAngles.z, arm[2].transform.rotation.eulerAngles.z);
     }
 
     [PunRPC]
-    public void PunSendArm(Vector3 pos, Quaternion rot)
+    public void PunSendArm(float x, float y, float z)
     {
-        if(!photonView.isMine)
-            arm[0].transform.parent.position = Vector3.Lerp(arm[0].transform.parent.position, pos, Time.deltaTime * 8);
+        if (photonView.isMine)
+            return;
+
+        float p = id == 1 ? 0 : 180;
+
+        Quaternion[] rot = new Quaternion[3];
+        rot[0] = Quaternion.Euler(new Vector3(0, p, x)); 
+        rot[1] = Quaternion.Euler(new Vector3(0, p, y));
+        rot[2] = Quaternion.Euler(new Vector3(0, p, z));
+
+        for (int i = 0; i < 3; i++)
+            arm[i].transform.rotation = Quaternion.Lerp(arm[i].transform.rotation, rot[i], 10f);
+        //Vector3.Lerp(arm[0].transform.parent.position, pos, Time.deltaTime * 8);
 
         //arm[0].transform.parent.position = pos;
-        arm[1].transform.rotation = rot;
+        //arm[0].transform.rotation = Quaternion.Euler(0, 0, x);
+        //arm[1].transform.rotation = Quaternion.Euler(0, 0, y);
+        //arm[2].transform.rotation = Quaternion.Euler(0, 0, z);
+
+        Debug.Log($"{x} / {y} / {z}");
 
         //Debug.Log(pos);
     }
