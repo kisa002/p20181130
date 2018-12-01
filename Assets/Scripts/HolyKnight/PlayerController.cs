@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     public int playerNumber = -1;
 
+    public SKILL skill;
+
     public GameObject[] finger = new GameObject[5];
     public GameObject[] arm = new GameObject[3];
 
@@ -54,6 +56,9 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(-7, 0, -1);
             }
         }
+
+        if(skill)
+            skill = GetComponent<SKILL>();
 
         if (id == 2 && NetworkManager.Instance.isPlay)
             arm[0].transform.parent.position = new Vector3(arm[0].transform.parent.position.x, arm[0].transform.parent.position.y, 0);
@@ -257,26 +262,36 @@ public class PlayerController : MonoBehaviour
         switch(id)
         {
             case 0:
+                if(photonView.isMine)
+                    skill.SoulStone(); // M 공격 1회 방어
                 break;
 
             case 1:
+                if (!photonView.isMine)
+                    skill.PowerStone(); // A 상대 5초 멈춤
                 break;
 
             case 2:
+                if (photonView.isMine)
+                    skill.MindStone(); // M 수전증 감소
                 break;
 
             case 3:
+                if (!photonView.isMine)
+                    skill.SpaceStone(); // A 돌떨굼
                 break;
 
             case 4:
+                if (!photonView.isMine)
+                    skill.RealStone(); // A 색바꿈
                 break;
 
             case 5:
+                if (photonView.isMine)
+                    skill.TimeStone(); // M 속도빨라짐
                 break;
         }
     }
-
-
 
     public void SelectPlayer(int x, int y)
     {
